@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ReportFlow</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.2/dist/feather.min.js"></script>
+</head>
+<body>
+<div id="login-screen" class="login-screen">
+  <div class="login-art">
+    <div class="login-brand"><div class="logo">R</div><div><b>ReportFlow</b><small>Digital Division</small></div></div>
+    <div class="login-copy">
+      <span class="login-kicker">MONTHLY REPORTING PLATFORM</span>
+      <h1>Turn project data into<br><em>clear monthly reports.</em></h1>
+      <p>Collect, review, and generate visual reports in one workspace.</p>
+    </div>
+    <div class="login-art-footer"><span>Reporting made simple.</span><span>2026</span></div>
+  </div>
+  <div class="login-panel">
+    <div class="login-form-wrap">
+      <div class="mobile-login-brand"><div class="logo">R</div><div><b>ReportFlow</b><small>Digital Division</small></div></div>
+      <div class="login-heading"><span>Welcome back</span><h2>Sign in to ReportFlow</h2><p>Use your company account to continue.</p></div>
+      <form id="login-form" class="login-form">
+        <div class="login-field"><label>Email address</label><input id="login-email" type="email" placeholder="name@company.com" autocomplete="username" required></div>
+        <div class="login-field"><div class="login-label-row"><label>Password</label><a href="#" onclick="event.preventDefault();showLoginMessage('Please contact your administrator to reset your password.')">Forgot password?</a></div><div class="password-wrap"><input id="login-password" type="password" placeholder="Enter your password" autocomplete="current-password" required><button type="button" onclick="togglePassword()" aria-label="Show password">Show</button></div></div>
+        <label class="remember"><input type="checkbox" id="remember-login" checked><span>Keep me signed in</span></label>
+        <button class="login-submit" type="submit">Sign in <span>→</span></button>
+        <div id="login-message" class="login-message"></div>
+      </form>
+      <div class="login-divider"><span>or</span></div>
+      <button class="sso-btn" type="button" onclick="demoSSO()"><span class="sso-icon">M</span> Continue with company SSO</button>
+      <p class="login-demo">Demo UI · Any valid-looking email and password will sign in.</p>
+    </div>
+    <div class="login-panel-footer"><span>© 2026 ReportFlow</span><span>Internal use only</span></div>
+  </div>
+</div>
+<div class="app" id="app-shell">
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-top"><div class="brand"><div class="logo">R</div><div><b>ReportFlow</b><small>Digital Division</small></div></div><button class="sidebar-collapse" id="sidebar-collapse" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar"><i data-feather="chevron-left"></i></button></div>
+  <div class="caption">WORKSPACE</div>
+  <label class="period-wrap"><span class="sr-only">Reporting period</span><select class="period" id="period-select" onchange="changePeriod(this.value)"><option value="September 2026">September 2026</option><option value="August 2026">August 2026</option><option value="July 2026">July 2026</option><option value="June 2026">June 2026</option><option value="May 2026">May 2026</option></select><i data-feather="chevron-down" class="period-chevron"></i></label>
+  <nav>
+    <button class="nav active" data-page="dashboard"><i data-feather="layout-dashboard"></i><span>Dashboard</span></button>
+    <button class="nav" data-page="reports"><i data-feather="file-text"></i><span>Monthly Reports</span></button>
+    <button class="nav" data-page="data"><i data-feather="check-square"></i><span>Data Collection</span></button>
+    <button class="nav" data-page="projects"><i data-feather="grid"></i><span>Projects</span></button>
+    <button class="nav" data-page="templates"><i data-feather="layers"></i><span>Templates</span></button>
+    <button class="nav" data-page="users"><i data-feather="users"></i><span>Users & Access</span></button>
+    <div class="nav-section-label">SYSTEM</div>
+    <button class="nav" data-page="activity"><i data-feather="clock"></i><span>Activity Log</span></button>
+  </nav>
+  <div class="side-bottom">
+    <button class="nav" data-page="settings"><i data-feather="settings"></i><span>Settings</span></button>
+    <div class="role"><b>Monthly Report PIC</b><small>Full access · 3 projects</small></div>
+  </div>
+</aside>
+<section class="main">
+<header>
+  <div><small>Workspace / September 2026</small><h1 id="title">Dashboard</h1></div>
+  <div class="account">
+    <div class="notification-wrap"><button class="bell" aria-label="Notifications" onclick="toggleNotifications()"><i data-feather="bell"></i><span class="notification-dot"></span></button><div id="notification-panel" class="notification-panel"><div class="notification-head"><div><b>Notifications</b><small>Recent workspace activity</small></div><button class="text-btn" onclick="markNotificationsRead()">Mark all read</button></div><div class="notification-list"><button class="notification-item unread" onclick="show('review');toggleNotifications()"><span class="notification-icon">✓</span><span><b>MTF Mobile is ready for review</b><small>September 2026 · 12 min ago</small></span></button><button class="notification-item unread" onclick="show('data');toggleNotifications()"><span class="notification-icon">!</span><span><b>RCDE data submission is pending</b><small>September 2026 · 1 hour ago</small></span></button><div class="notification-empty" id="notification-empty">No new notifications</div></div></div></div>
+    <button class="account-trigger" onclick="toggleAccountMenu()" aria-expanded="false">
+      <div class="avatar">AM</div><div class="account-copy"><b>Amalia</b><small>Monthly Report PIC</small></div><i data-feather="chevron-down" class="account-chevron"></i>
+    </button>
+    <div id="account-menu" class="account-menu">
+      <div class="account-menu-head"><div class="avatar large">AM</div><div><b>Amalia</b><small>Monthly Report PIC</small></div></div>
+      <div class="account-menu-divider"></div>
+      <button onclick="show('users');toggleAccountMenu()"><i data-feather="users"></i><span>Account & access</span></button>
+      <button onclick="toggleDemoRole();toggleAccountMenu()"><i data-feather="repeat"></i><span>Switch demo role</span></button>
+      <button onclick="show('settings');toggleAccountMenu()"><i data-feather="settings"></i><span>Settings</span></button>
+      <div class="account-menu-divider"></div>
+      <button class="signout" onclick="signOut()"><i data-feather="log-out"></i><span>Sign out</span></button>
+    </div>
+  </div>
+</header>
+<div id="content"></div><footer class="app-footer">© 2026 Amalia. All Rights Reserved.</footer>
+</section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
